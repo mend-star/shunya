@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+   <style>
+    h1{ 
+        font-size: 100px;
+        font-family: serif;
+    }
+    a{
+        color: #ffffff;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden; /* ページのスクロールを禁止 */
+      font-family: 'Arial', sans-serif;
+    }
+    
+    #chat-container {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%); /* 要素を中央に配置 */
+      z-index: 1; /* チャットボックスを前面に配置 */
+      font-size: 18px;
+      color: #fff;
+      text-align: center;
+    }
+    
+    #background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0; /* 背景を後面に配置 */
+      background: #333;
+    }
+    
+    #quote-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-wrap: wrap; /* 引用文を複数行に配置 */
+      justify-content: center;
+      align-items: center;
+      z-index: 2;
+      pointer-events: none; /* イベントを受け付けないようにする */
+      animation: quote-animation 20s linear infinite;
+    }
+    
+    .quote {
+        font-family: serif;
+      font-size: 48px; /* 引用文のサイズを大きく */
+      line-height: 1.5;
+      writing-mode: vertical-rl;
+      text-orientation: upright;
+     
+      opacity: 0; /* 初期状態では非表示 */
+      animation: fade-in 1s ease forwards;
+      position: absolute; /* 絶対位置に配置 */
+    }
+    @media (max-width: 600px) {
+      .quote {
+        top: calc(50% - 150px);
+      }
+    }
+    
+    @keyframes quote-animation {
+      0% {
+        transform: translateY(-100%);
+      }
+      100% {
+        transform: translateY(100%);
+      }
+    }
+    
+    @keyframes fade-in {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    /* 新しいクラスを追加 */
+    .animated-text {
+      opacity: 0;
+      animation: text-animation 2s ease forwards;
+    }
+
+    @keyframes text-animation {
+      0% {
+        opacity: 0;
+        transform: scale(0);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="background"></div>
+  
+  <div id="chat-container">
+    <!-- 追加したクラス名 -->
+    <h1><a href="index.html" class="animated-text"> menD-chat</a></h1>
+    <p>タップしてください</p>
+  </div>
+  
+  <div id="quote-container">
+    <div class="quote" style="top: 10px; left: 10px;">「美しいものを見ると、</div>
+    <div class="quote" style="top: 100px; left: 100px;">心臓が痛みます。」</div>
+    <div class="quote" style="top: 200px; left: 200px;">「孤独なときに、</div>
+    <div class="quote" style="top: 300px; left: 300px;">独りになりたい
+
+と思います。」</div>
+    <div class="quote" style="top: 400px; left: 400px;">「死にたいと思うのは、</div>
+    <div class="quote" style="top: 500px; left: 500px;">生きることへの愛故です。」</div>
+    <div class="quote" style="top: 600px; left: 600px;">人は一人で生まれ、</div>
+    <div class="quote" style="top: 700px; left: 700px;">一人で死にます。</div>
+    <div class="quote" style="top: 800px; left: 800px;">それが寂しいのではなく、</div>
+    <div class="quote" style="top: 900px; left: 900px;">美しいと思います。」</div>
+    <div class="quote" style="top: 1000px; left: 1000px;">「文学とは、ただ単に遊び事ではなく、</div>
+    <div class="quote" style="top: 1100px; left: 1100px;">すべてのものに対する理論です。」</div>
+    <div class="quote" style="top: 1200px; left: 1200px;">「自己は、他者によってのみ自覚されるものです。」</div>
+    <div class="quote" style="top: 1300px; left: 1300px;">「自己を愛すること、それは他者を愛することです。」</div>
+    <div class="quote" style="top: 1400px; left: 1400px;">「あなたがたは、自己の形をもって人を知ることができる。」</div>
+    <div class="quote" style="top: 1500px; left: 1500px;">「孤独は、人間にとって最も適切な状態です。」</div>
+    <div class="quote" style="top: 1600px; left: 1600px;">「現実は、過去の記憶に依存しています。」</div>
+    <div class="quote" style="top: 1700px; left: 1700px;">「自己の内面を理解することができれば、他者をも理解できる。」</div>
+    <div class="quote" style="top: 1800px; left: 1800px;">「無限の虚無からの解放こそが、真の喜びの源です。」</div>
+    <div class="quote" style="top: 1900px; left: 1900px;">「自己の形をもつことができるのは、自己の外部だけです。」</div>
+    <div class="quote" style="top: 2000px; left: 2000px;">「自己の存在を認識するためには、他者が必要です
+
+。」</div>
+    <div class="quote" style="top: 2100px; left: 2100px;">「生きることは、他者を愛することです。」</div>
+  </div>
+  
+  <script>
+    // Move the chat box using keyboard arrow keys or WASD
+    var chatContainer = document.getElementById("chat-container");
+    var stepSize = 10;
+  
+    window.addEventListener("keydown", function (event) {
+      switch (event.key) {
+        case "ArrowUp":
+        case "w":
+          chatContainer.style.top =
+            parseInt(chatContainer.style.top) - stepSize + "px";
+          break;
+        case "ArrowDown":
+        case "s":
+          chatContainer.style.top =
+            parseInt(chatContainer.style.top) + stepSize + "px";
+          break;
+        case "ArrowLeft":
+        case "a":
+          chatContainer.style.left =
+            parseInt(chatContainer.style.left) - stepSize + "px";
+          break;
+        case "ArrowRight":
+        case "d":
+          chatContainer.style.left =
+            parseInt(chatContainer.style.left) + stepSize + "px";
+          break;
+      }
+    });
+
+    // Add a cooler animation effect
+    var quoteContainer = document.getElementById("quote-container");
+    var quotes = document.getElementsByClassName("quote");
+    var quoteIndex = 0;
+  
+    setInterval(function () {
+      // Hide the current quote
+      quotes[quoteIndex].style.opacity = 0;
+  
+      // Move to the next quote
+      quoteIndex = (quoteIndex + 1) % quotes.length;
+  
+      // Show the new quote
+      quotes[quoteIndex].style.opacity = 1;
+    }, 3000); // Change quote every 3 seconds
+  </script>
+</body>
+</html>

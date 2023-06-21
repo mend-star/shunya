@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>menD-chat</title>
+  <style>
+    /* スタイルの定義 */
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: auto;
+      font-family: 'Arial', sans-serif;
+      background-color: #f5f5f5;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      text-align: center;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .group {
+      margin-bottom: 20px;
+    }
+
+    .group input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .group button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .group button:hover {
+      background-color: #45a049;
+    }
+
+    h1 {
+      font-size: 60px;
+      margin-top: 0;
+      margin-bottom: 20px;
+      text-align: center;
+      color: #333;
+    }
+
+    header {
+      background-color: #333;
+      padding: 20px;
+      text-align: center;
+      font-size: 25px;
+      color: #fff;
+      border-radius: 10px 10px 0 0;
+    }
+
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav ul li {
+      display: inline-block;
+      margin-right: 10px;
+    }
+
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      text-align: center;
+    }
+
+    nav ul li a:hover {
+      color: #f00;
+    }
+
+    nav ul li:not(:last-child) {
+      margin-right: 140px;
+    }
+
+    .group-item {
+      background-color: #eee;
+      padding: 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .group-item:hover {
+      background-color: #ddd;
+    }
+
+    .group-list {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+      text-align: left;
+      flex-grow: 1;
+      overflow-y: auto;
+    }
+
+    .stream-button {
+      display: none;
+    }
+
+    #clock {
+      font-size: 80px;
+      color: #333;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    #videoContainer {
+      display: none;
+    }
+
+    #videoElement {
+      width: 100%;
+      height: auto;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.2);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>menD-chat</h1>
+  <header>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="news.html">お知らせ</a></li>
+        <li><a href="summry.html">概要</a></li>
+        <li><a href="index.html">ホーム</a></li>
+        <li><a href="great joy.html">日記</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div id="clock"></div>
+    <h2>グループ作成</h2>
+    <div class="group">
+      <input type="text" id="groupNameInput" placeholder="グループ名">
+      <button onclick="createGroup()">作成</button>
+    </div>
+    <h2>グループ参加</h2>
+    <div class="group">
+      <input type="text" id="joinGroupInput" placeholder="グループ名">
+      <button onclick="joinGroup()">参加</button>
+    </div>
+    <h2>参加可能なグループ</h2>
+    <div class="group">
+      <ul id="availableGroups" class="group-list"></ul>
+    </div>
+  </div>
+
+  <div id="videoContainer">
+    <video id="videoElement" autoplay controls></video>
+  </div>
+
+  <script>
+    var maxGroupSize = 4; // グループの最大人数
+
+    function updateClock() {
+      var clockElement = document.getElementById("clock");
+      var now = new Date();
+      var hours = now.getHours().toString().padStart(2, "0");
+      var minutes = now.getMinutes().toString().padStart(2, "0");
+      var seconds = now.getSeconds().toString().padStart(2, "0");
+      var timeString = hours + ":" + minutes + ":" + seconds;
+      clockElement.textContent = timeString;
+    }
+
+    setInterval(updateClock, 1000);
+
+    function showChatScreen(groupName) {
+      window.location.href = "chatpage.html?group=" + encodeURIComponent(groupName);
+    }
+
+    var groups = [];
+
+    function displayAvailableGroups() {
+      var availableGroups = document.getElementById("availableGroups");
+      availableGroups.innerHTML = "";
+
+      groups.forEach(function(group) {
+        var li = document.createElement("li");
+        li.textContent = group;
+        li.classList.add("group-item");
+        li.addEventListener("click", function() {
+          showChatScreen(group);
+        });
+        availableGroups.insertBefore(li, availableGroups.firstChild);
+      });
+
+      if (groups.length >= maxGroupSize) {
+        var groupInputs = document.getElementsByClassName("group");
+        for (var i = 0; i < groupInputs.length; i++) {
+          groupInputs[i].style.display = "none";
+        }
+      }
+    }
+
+    function createGroup() {
+      var groupNameInput = document.getElementById("groupNameInput");
+      var groupName = groupNameInput.value;
+
+      if (groupName !== "") {
+        groups.push(groupName);
+        groupNameInput.value = "";
+        displayAvailableGroups();
+      }
+    }
+
+    function joinGroup() {
+      var joinGroupInput = document.getElementById("joinGroupInput");
+      var groupName = joinGroupInput.value;
+
+      if (groupName !== "") {
+        groups.push(groupName);
+        joinGroupInput.value = "";
+        displayAvailableGroups();
+      }
+    }
+
+    displayAvailableGroups();
+  </script>
+</body>
+</html>

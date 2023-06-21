@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>お知らせ</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+     header {
+    background-color: #333;
+    padding: 20px 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  nav {
+    text-align: center;
+  }
+
+  .nav-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .nav-links li {
+    margin: 0 10px;
+  }
+
+  .nav-links li a {
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+
+  .nav-links li a:hover {
+    color: #ddd;
+  }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #1a1a1a;
+      color: #fff;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    h2 {
+      color: #00bfff;
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      margin-bottom: 20px;
+      font-size: 16px;
+    }
+
+    /* セキュリティーの注意事項のスタイル */
+    .security-notice {
+      background-color: rgba(0, 191, 255, 0.2);
+      padding: 20px;
+      border-radius: 5px;
+    }
+
+    /* イベントのキャンペーンに関する知らせのスタイル */
+    .event-notice {
+      background-color: rgba(0, 191, 255, 0.15);
+      padding: 20px;
+      border-radius: 5px;
+    }
+
+    .event-notice .campaign-title {
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .event-notice .campaign-description {
+      margin-top: 10px;
+      font-size: 16px;
+    }
+
+    /* アップデート情報のスタイル */
+    .update-notice {
+      background-color: rgba(0, 191, 255, 0.1);
+      padding: 20px;
+      border-radius: 5px;
+    }
+
+    .update-notice .update-title {
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .update-notice .update-description {
+      margin-top: 10px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+    <header>
+        <nav>
+          <ul class="nav-links">
+            <li><a href="news.html">お知らせ</a></li>
+            <li><a href="summry.html">概要</a></li>
+            <li><a href="index.html">ホーム</a></li>
+            <li><a href="great joy.html">日記</a></li>
+          </ul>
+        </nav>
+    </header>
+
+  <div class="container">
+    <div class="security-notice">
+      <h2>セキュリティーの注意事項</h2>
+      <p>SSL/TLSの使用：ウェブサイトは、ユーザーとの通信を保護するためにSSL/TLS証明書を使用するべきです。HTTPSプロトコルをサポートし、暗号化された接続を提供することで、情報の安全性を確保します。
+
+        アップデートの継続：ウェブサイトのプラットフォームやコンポーネント（CMS、プラグイン、テーマなど）を常に最新のバージョンにアップデートすることが重要です。セキュリティパッチや脆弱性の修正が含まれており、攻撃リスクを軽減します。
+        
+        強力なパスワードの使用：管理者やユーザーアカウントには、複雑で予測困難なパスワードの使用を推奨します。パスワードは定期的に変更し、複数のアカウントで同じパスワードを使用しないようにします。
+        
+        不正アクセスの監視：ウェブサイトのログイン試行やアクセスパターンを監視し、不正なアクティビティを検出する仕組みを導入します。異常なトラフィックや攻撃の兆候に対して警戒し、セキュリティインシデントに対応します。
+        
+        バックアップと復旧計画：定期的なデータのバックアップを実施し、万一のデータ損失や攻撃に備えます。また、復旧計画を策定し、サイトのダウンタイムを最小限に抑えるための手順を準備しておきます。
+        
+        セキュリティテストと脆弱性スキャン：定期的なセキュリティテストや脆弱性スキャンを実施し、ウェブサイトのセキュリティの脆弱性を特定し、修正するための対策を講じます。
+        
+        ユーザーへの教育と意識向上：ウェブサイトの利用者に対して、セキュリティに関する教育と意識向上を行います。強力なパスワードの作成方法や、フィッシング詐欺やマルウェアに対する警戒などの基本的なセキュリティベストプラクティスを普及させます。
+        
+        アクセス制御と権限管理：必要最小限の権限で運用し、ユーザーアカウントに対してアクセス制御を行います。管理者権限や重要な機能へのアクセスは、信頼できるユーザーにのみ与えます。
+    </p>
+  </div>
+
+  <div class="event-notice">
+    <h2>イベントのキャンペーンに関する知らせ</h2>
+    <div class="campaign">
+      <h3 class="campaign-title">夏のセール開催中！</h3>
+      <p class="campaign-description">期間限定の夏のセールを開催しています。最大50%割引のチャンスをお見逃しなく！</p>
+    </div>
+    <div class="campaign">
+      <h3 class="campaign-title">新製品発売のお知らせ</h3>
+      <p class="campaign-description">新製品の発売を記念して、特別なプレオーダー価格を提供しています。お得なチャンスをお見逃しなく！</p>
+    </div>
+  </div>
+
+  <div class="update-notice">
+    <h2>アップデート情報</h2>
+    <div class="update">
+      <h3 class="update-title">バージョン1.2.0リリースのお知らせ</h3>
+      <p class="update-description">新しいバージョン1.2.0がリリースされました。重要なセキュリティ修正と機能の追加が含まれています。すぐにアップデートしてください。</p>
+    </div>
+    <div class="update">
+      <h3 class="update-title">プラグインのアップデートについて</h3>
+      <p class="update-description">使用しているプラグインの最新バージョンが利用可能です。新機能やパフォーマンスの向上につながるため、アップデートをおすすめします。</p>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
