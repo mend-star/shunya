@@ -109,6 +109,7 @@
     }
 
     .group-list {
+      max-height: 200px;
       list-style-type: none;
       padding: 0;
       margin: 0;
@@ -158,9 +159,9 @@
     <nav>
       <ul class="nav-links">
         <li><a href="news.html">お知らせ</a></li>
-        <li><a href="summry.html">概要</a></li>
+        <li><a href="summary.html">概要</a></li>
         <li><a href="index.html">ホーム</a></li>
-        <li><a href="great joy.html">日記</a></li>
+        <li><a href="great_joy.html">日記</a></li>
       </ul>
     </nav>
   </header>
@@ -188,8 +189,6 @@
   </div>
 
   <script>
-    var maxGroupSize = 4; // グループの最大人数
-
     function updateClock() {
       var clockElement = document.getElementById("clock");
       var now = new Date();
@@ -201,10 +200,6 @@
     }
 
     setInterval(updateClock, 1000);
-
-    function showChatScreen(groupName) {
-      window.location.href = "chatpage.html?group=" + encodeURIComponent(groupName);
-    }
 
     var groups = [];
 
@@ -221,13 +216,6 @@
         });
         availableGroups.insertBefore(li, availableGroups.firstChild);
       });
-
-      if (groups.length >= maxGroupSize) {
-        var groupInputs = document.getElementsByClassName("group");
-        for (var i = 0; i < groupInputs.length; i++) {
-          groupInputs[i].style.display = "none";
-        }
-      }
     }
 
     function createGroup() {
@@ -237,7 +225,11 @@
       if (groupName !== "") {
         groups.push(groupName);
         groupNameInput.value = "";
+        if (groups.length > maxGroupCount) {
+          groups.shift();
+        }
         displayAvailableGroups();
+        saveGroupsToLocalStorage();
       }
     }
 
@@ -246,13 +238,43 @@
       var groupName = joinGroupInput.value;
 
       if (groupName !== "") {
-        groups.push(groupName);
-        joinGroupInput.value = "";
+        // グループに参加するための処理を追加
+        showChatScreen(groupName);
+      }
+    }
+
+    function saveGroupsToLocalStorage() {
+      if (groups.length > 0) {
+        localStorage.setItem("groups", JSON.stringify(groups));
+      }
+    }
+
+    function loadGroupsFromLocalStorage() {
+      var savedGroups = localStorage.getItem("groups");
+
+      if (savedGroups) {
+        groups = JSON.parse(savedGroups);
         displayAvailableGroups();
       }
     }
 
+    function showChatScreen(groupName) {
+      window.location.href = "chatpage.html?group=" + encodeURIComponent(groupName);
+    }
+
     displayAvailableGroups();
+    loadGroupsFromLocalStorage();
+
+    var maxGroupCount = 100;
+
+    window.addEventListener("beforeunload", function() {
+      saveGroupsToLocalStorage();
+    });
+
+    window.addEventListener("load", function() {
+      loadGroupsFromLocalStorage();
+    });
   </script>
 </body>
 </html>
+
