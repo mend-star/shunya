@@ -12,9 +12,7 @@
       overflow: auto;
       font-family: 'Arial', sans-serif;
       background-color: #f5f5f5;
-    }
-
-    .container {
+    }.container {
       max-width: 400px;
       margin: 0 auto;
       padding: 20px;
@@ -150,6 +148,9 @@
         transform: scale(1);
       }
     }
+
+    /* ... 以降のスタイルの定義は省略 ... */
+
   </style>
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -180,7 +181,30 @@
     </div>
     <h2>参加可能なグループ</h2>
     <div class="group">
-      <ul id="availableGroups" class="group-list"></ul>
+      <ul id="availableGroups" class="group-list">
+        <?php
+        // グループのリストを取得するための関数やデータベースクエリなどを定義してください
+        // ここではサンプルとして、$otherGroupsという配列に他の人が作成したグループのリストを格納しています
+        $otherGroups = ["Group A", "Group B", "Group C"];
+        
+        function getOtherGroups() {
+          // グループのリストを取得する処理を実装してください
+          // ここではサンプルとして、$otherGroupsを返します
+          return $otherGroups;
+        }
+        
+        // グループのリストを取得して表示する
+        function displayOtherGroups() {
+          $groups = getOtherGroups();
+          foreach ($groups as $group) {
+            echo '<li class="group-item" onclick="showChatScreen(\'' . $group . '\')">' . $group . '</li>';
+          }
+        }
+        
+        // グループのリストを取得して表示する
+        displayOtherGroups();
+        ?>
+        </ul>
     </div>
   </div>
 
@@ -274,6 +298,27 @@
     window.addEventListener("load", function() {
       loadGroupsFromLocalStorage();
     });
+
+    // サンプルデータとして他の人が作成したグループのリストを作成
+    var otherGroups = ["Group A", "Group B", "Group C"];
+
+    function displayOtherGroups() {
+      var availableGroups = document.getElementById("availableGroups");
+      availableGroups.innerHTML = "";
+
+      otherGroups.forEach(function(group) {
+        var li = document.createElement("li");
+        li.textContent = group;
+        li.classList.add("group-item");
+        li.addEventListener("click", function() {
+          showChatScreen(group);
+        });
+        availableGroups.appendChild(li);
+      });
+    }
+
+    // 他の人が作成したグループの表示を追加
+    displayOtherGroups();
   </script>
 </body>
 </html>
